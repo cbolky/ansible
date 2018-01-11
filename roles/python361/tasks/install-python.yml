@@ -1,0 +1,29 @@
+- stat: "path={{ python_src }}/{{ python_ver }}"
+  register: py_src
+- stat: "path={{ python_dir }}"
+  register: py_dir
+
+- name: unarchive
+  unarchive:
+    src: "{{ python_url }}"
+    remote_src: yes
+    dest: "{{ python_src }}"
+  become: true
+  when: not py_src.stat.exists
+
+- name: Compile and Install Python
+  shell: "cd {{ python_dir }} && ./configure {{ python_options }} && make && make install"
+  become: true
+  when: not py_dir.stat.exists
+
+- file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+  with_items:
+    - { src: '/opt/python36/bin/python3', dest: '/usr/local/bin/python3' }
+    - { src: '/opt/python36/bin/pip3'   , dest: '/usr/local/bin/pip3'    }
+  become: true
+  when: not py_dir.stat.exists
+
+

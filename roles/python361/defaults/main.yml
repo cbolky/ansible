@@ -1,0 +1,19 @@
+python_ver: Python-3.6.1
+python_src: /usr/src/
+python_url: https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
+python_dir: /opt/python36
+python_options: \-\-prefix=/opt/python36 \-\-enable-optimizations
+
+python_rhel_packages:
+   - zlib-devel
+   - openssl-devel
+   - gcc
+   - git
+   
+python_deb_packages:
+   - zlib1g-dev
+   - libssl-dev
+   - gcc
+   - git
+   
+

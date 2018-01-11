@@ -1,0 +1,6 @@
+- name: Install Packages for Python
+  apt: name={{item}} state=latest update_cache=yes
+  with_items: "{{ python_deb_packages }}"
+
+
+
